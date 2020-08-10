@@ -1,25 +1,25 @@
-//Importa o express
+//Importa os modulos externos
 const express = require('express');
 
 //Instanciando a aplicação
 const app = express();
 
-//Porta da aplicação
+//Posta da aplicação
 const porta = 3000;
 
 //Adicionando uma requisição para a rota raíz ('/') da aplicação
 app.get('/', (req, res) => {
-    res.send('<h1>Its Work!</h1>');
+    res.send('<h1>Exemplo de implementação DELETE com JSON</h1>');
 });
 
 //Cria uma lista de compras (vetor)
 var listaCompras = [];
 
 //Alimentei a minha lista de compra
-listaCompras.push('Pão');
-listaCompras.push('Leite');
-listaCompras.push('Café');
-listaCompras.push('Chá');
+listaCompras.push({nome: 'Pão'});
+listaCompras.push({nome: 'Leite'});
+listaCompras.push({nome: 'Café'});
+listaCompras.push({nome: 'Chá'});
 
 //Rota que devolve a lista de compras
 app.get('/listaDeCompra', (req, res) => {
@@ -28,21 +28,19 @@ app.get('/listaDeCompra', (req, res) => {
 
 });
 
-//Rota que devolve o parametro solicitado(:item)
-app.get('/listaDeCompra/:item', (req, res) => {
+//Exclui um recurso do vetor
+app.delete('/listaDeCompra/:param', (req,res) => {
 
-    var item = req.params.item;
+    const param = req.params.param;
 
-    var encontrado = listaCompras[item-1];
-
-    if (encontrado) {
-        res.send(encontrado);
+    if (listaCompras[param-1]) {
+        listaCompras.splice(param-1, 1);
+        res.status(204).send();
     } else {
-        res.status(404).send('not found');
+        res.status(404).send({msg: 'Resource not found'});
     }
 
-});
-
+})
 
 //Iniciando a aplicação na porta 3000
 app.listen(porta, () => {

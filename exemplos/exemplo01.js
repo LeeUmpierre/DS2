@@ -24,8 +24,9 @@ const app = express();
 //app agora eh uma aplicacao web parada
 
 // "/" raiz
+//req = require, res = response
 app.get('/', function(req,res) {
-    res.send('<h1>Its Work!</h1>');
+    res.send('<h1>Exemplo01 lista com retorno</h1>');
 });
 
 //Nova rota 

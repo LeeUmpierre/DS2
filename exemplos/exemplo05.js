@@ -6,24 +6,24 @@ const bodyParser = require('body-parser');
 const app = express();
 
 //Adiciona o body-parser à aplicação (Permite receber elementos no corpo da requisição)
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
-//Porta da aplicação
+//Posta da aplicação
 const porta = 3000;
 
 //Adicionando uma requisição para a rota raíz ('/') da aplicação
 app.get('/', (req, res) => {
-    res.send('<h1>Utilizando o Método POST com envio de string</h1>');
+    res.send('<h1>Exemplo de implementação do PUT com JSON</h1>');
 });
 
 //Cria uma lista de compras (vetor)
 var listaCompras = [];
 
 //Alimentei a minha lista de compra
-listaCompras.push('Pão');
-listaCompras.push('Leite');
-listaCompras.push('Café');
-listaCompras.push('Chá');
+listaCompras.push({nome: 'Pão'});
+listaCompras.push({nome: 'Leite'});
+listaCompras.push({nome: 'Café'});
+listaCompras.push({nome: 'Chá'});
 
 //Rota que devolve a lista de compras
 app.get('/listaDeCompra', (req, res) => {
@@ -32,15 +32,19 @@ app.get('/listaDeCompra', (req, res) => {
 
 });
 
-//Enviar um item de compra
-app.post('/listaDeCompra', (req,res) => {
-    var item = req.body;
+//Altera um recurso do vetor
+app.put('/listaDeCompra/:param', (req,res) => {
 
-    listaCompras.push(item);
-    //201 = requisicao enviada com sucesso
-    res.status(201).send('created');
-});
+    const param = req.params.param;
 
+    if (listaCompras[param-1]) {
+        listaCompras[param-1] = req.body;
+        res.send(req.body);
+    } else {
+        res.status(404).send({msg: 'Resource not found'});
+    }
+
+})
 
 //Iniciando a aplicação na porta 3000
 app.listen(porta, () => {
