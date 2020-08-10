@@ -4,7 +4,7 @@ const express = require('express');
 //Instanciando a aplicação
 const app = express();
 
-//Posta da aplicação
+//Porta da aplicação
 const porta = 3000;
 
 //Adicionando uma requisição para a rota raíz ('/') da aplicação

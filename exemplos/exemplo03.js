@@ -8,7 +8,7 @@ const app = express();
 //Adiciona o body-parser à aplicação (Permite receber elementos no corpo da requisição)
 app.use(bodyParser.text());
 
-//Posta da aplicação
+//Porta da aplicação
 const porta = 3000;
 
 //Adicionando uma requisição para a rota raíz ('/') da aplicação
