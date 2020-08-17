@@ -14,4 +14,7 @@ routes.get('/pessoas/:id', PessoaController.findOne);
 //Altera o item com o ID passado por parametro na URI pelo objeto anexado
 routes.put('/pessoas/:id', PessoaController.update);
 
+//Remove item com id de param
+routes.delete('/pessoa/:id',PessoaController.delete);
+
 module.exports = routes;
