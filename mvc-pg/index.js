@@ -1,3 +1,7 @@
+/*SQL
+select pessoa.*, cidade.nome, cidade.uf from pessoa
+join cidade on cidade.id = pessoa.cidade_id
+*/
 const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./pg-connection');
