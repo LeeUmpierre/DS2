@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./pg-connection');
+
 const pessoaRoutes = require('./routes/pessoa.route');
+const cidadeRoutes = require('./routes/cidade.route');
+
 
 //Instanciar aplicação
 const app = express();
@@ -19,6 +22,7 @@ app.get('/', (req,res) => {
 
 //Adiciona rota para tabela "pessoa"
 app.use(pessoaRoutes);
+app.use(cidadeRoutes)
 
 //Estabelece uma conexão com o banco de dados
 connection.connect()
