@@ -17,6 +17,7 @@ alter table pessoa add constraint fk_usuario foreign key (usuario_id) references
 const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./pg-connection');
+const cors = require('cors')
 const routes = require('./routes');
 
 //Instanciar aplicação
@@ -27,6 +28,9 @@ const port = 3000;
 
 //Adicionar o body-parser à aplicação
 app.use(bodyParser.json());
+
+//ADD o cors ao app
+app.use(cors());
 
 //Rota para raíz
 app.get('/', (req,res) => {
