@@ -1,35 +1,19 @@
-/*SQL
-select pessoa.*, cidade.nome, cidade.uf from pessoa
-join cidade on cidade.id = pessoa.cidade_id
-
-create table usuario(
-	id serial primary key,
-	username varchar(30) not null,
-	password varchar(30) not null
-);
-
-alter table usuario add constraint unq_username unique(username);
-alter table pessoa add column usuario_id integer;
-alter table pessoa add constraint fk_usuario foreign key (usuario_id) references usuario (id);
-*/
-
-//npm start => Ctrl +c parar
 const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./pg-connection');
-const cors = require('cors')
+const cors = require('cors');
 const routes = require('./routes');
 
 //Instanciar aplicação
 const app = express();
 
 //Porta da aplicação
-const port = 3000;
+const port = 3333;
 
 //Adicionar o body-parser à aplicação
 app.use(bodyParser.json());
 
-//ADD o cors ao app
+//Adicionar o Cors à aplicação
 app.use(cors());
 
 //Rota para raíz
