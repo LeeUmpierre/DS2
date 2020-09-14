@@ -1,0 +1,71 @@
+<div class="conteudo">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/logomarca.png" loading="lazy">
+            </a>
+
+            <div class="collapse navbar-collapse justify-content-stretch">
+                <div class="navbar-nav ml-auto">
+                    <div class="nav-item btn-group">
+                        <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+                            <img class="avatar avatar-sm" ng-src="{{'assets/img/avatar_default.svg'}}">
+                            {{logado.nome}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdownitem btn btn-link" ng-href="#!/{{logado.username}}">Perfil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdownitem btn btn-link" ng-href="#!/signout">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile container">
+        <div class="row">
+            <div class="col-4">
+                <div class="avatar">
+                    <img src="assets/img/avatar_default.svg">
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="username">
+                    <span>{{profile.usuario.username}}</span>
+                    <button class="btn btn-sm btn-outline-secondary"
+                        ng-if="logado.username == profile.usuario.username">Editar Perfil</button>
+                </div>
+                <div class="overview">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><strong>{{profile.fotos.length}}</strong> publicações</li>
+                        <li class="list-inline-item"><strong>{{profile.seguidores.length}}</strong> seguidores</li>
+                        <li class="list-inline-item"><strong>{{profile.seguindo.length}}</strong> seguindo</li>
+                    </ul>
+                </div>
+                <h5>{{profile.usuario.nome}}</h5>
+            </div>
+        </div>
+        <div class="row fotos">
+            <div class="col-md-4" ng-repeat="foto in profile.fotos" ng-if="profile.fotos.length > 0">
+                <div class="foto">
+                    <a ng-href="#!/fotos/{{foto.id}}">
+                        <img class="img-fluid" 
+                            src="https://instagram.fbfh3-2.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/118885600_319947052660088_6198440236030972596_n.jpg?_nc_ht=instagram.fbfh3-2.fna.fbcdn.net&_nc_cat=108&_nc_ohc=Qti7aoLitnAAX8Izsay&oh=3c4b0ff233ebc2e9d3073bd111adf772&oe=5F81816E">
+                    </a>
+                    <div class="contagem text-center">
+                        <button class="btn btn-link">
+                            {{foto.curtidas}} curtidas
+                        </button>
+                        <button class="btn btn-link">
+                            {{foto.comentarios}} comentarios
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col no-fotos text-center" ng-if="profile.fotos.length == 0">
+                <h3>Ainda não há nenhuma publicação</h3>
+            </div>
+        </div>
+    </div>
+</div>
