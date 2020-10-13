@@ -11,7 +11,7 @@ try {
             console.log('Running on port 3333');
         });
     }).catch(error => {
-        console.log("N foi possivel conctar ao DB. ", error.message);
+        console.log("N foi possivel conectar ao DB. ", error.message);
     });
 }
 catch (error) {
