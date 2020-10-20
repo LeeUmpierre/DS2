@@ -1,28 +1,28 @@
-import { ConfirmDialogComponent, ConfirmDialogOption } from './../_components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { CidadeEntity, CidadeService } from '../_service/cidade.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent, ConfirmDialogOption } from '../_components/confirm-dialog/confirm-dialog.component';
+import { ProdutoEntity } from '../_service/produto.service';
 
 @Component({
-  selector: 'app-cidade',
-  templateUrl: './cidade.component.html',
-  styleUrls: ['./cidade.component.scss']
+  selector: 'app-produto',
+  templateUrl: './produto.component.html',
+  styleUrls: ['./produto.component.scss']
 })
-export class CidadeComponent implements OnInit {
+export class ProdutoEntity implements OnInit {
 
-  public displayedColumns: string[] = ['nome', 'uf', 'options'];
-  public cidades: CidadeEntity[] = [];
+  public displayedColumns: string[] = ['codigo','nome', 'descricao','preco', 'options'];
+  public produtos: ProdutoEntity[] = [];
 
   public errorMessage: string; 
   public loading: boolean;
 
-  public cidade: CidadeEntity = new CidadeEntity();
+  public produto: ProdutoEntity = new ProdutoEntity();
 
   @ViewChild(MatSidenav, {static: true}) sidenav: MatSidenav;
 
-  constructor(private service: CidadeService, private snackBar: MatSnackBar,
+  constructor(private service: ProdutoEntity, private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
 
   /**
@@ -33,11 +33,11 @@ export class CidadeComponent implements OnInit {
     this.errorMessage = '';
     this.loading = true;
 
-    //Carrega a lista de cidades
+    //Carrega a lista de produtos
     this.service.listarTodos().subscribe(result => {
       
       //Alimenta o datasource da tabela com a lista recebido da service
-      this.cidades = result as [];
+      this.produtos = result as [];
 
     }, error => {
 
@@ -60,7 +60,7 @@ export class CidadeComponent implements OnInit {
     this.loading = true;
 
     //Chama o método salvar (incluir ou alterar) da service
-    this.service.salvar(this.cidade).subscribe(result => {
+    this.service.salvar(this.produto).subscribe(result => {
 
       //Deu tudo certo, então avise o usuário...
       this.snackBar.open('Registro salvo com sucesso!', '', {
@@ -86,9 +86,9 @@ export class CidadeComponent implements OnInit {
    * Chama a janela de confirmação de exclusão, se usuário confirmar
    * chama evento de exclusão da service.
    * 
-   * @param cidade 
+   * @param produto 
    */
-  public excluir(cidade: CidadeEntity): void {
+  public excluir(produto: ProdutoEntity): void {
     
     //Mostra a janela modal de confirmação
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -101,7 +101,7 @@ export class CidadeComponent implements OnInit {
       
       //Se confirmou, exclui o registro
       if (result) {
-        this.service.excluir(cidade.id).subscribe(result => {
+        this.service.excluir(produto.id).subscribe(result => {
           
           //Deu certo, avisa o usuário...
           this.snackBar.open('Registro excluído com sucesso!', '', {
@@ -128,20 +128,20 @@ export class CidadeComponent implements OnInit {
    */
   public adicionar(): void {
     //Crio um novo objeto e abro o formulario
-    this.openSidenav(new CidadeEntity());
+    this.openSidenav(new ProdutoEntity());
   }
 
   /**
    * Abre o formulário com os campos preenchidos com os valores
    * do parametro.
    * 
-   * @param cidade
+   * @param produto
    */
-  public editar(cidade: CidadeEntity): void {
-    //Como cidade é passado um objeto da tabela por referencia, 
+  public editar(produto: ProdutoEntity): void {
+    //Como produto é passado um objeto da tabela por referencia, 
     //se não foir feito uma copia deste, ao alterar a linha da 
     //tabela altera junto.
-    this.openSidenav(Object.create(cidade));
+    this.openSidenav(Object.create(produto));
   }
 
   /**
@@ -164,10 +164,10 @@ export class CidadeComponent implements OnInit {
    * Dá um open na sidnav exibindo o formulário com os dados 
    * da objeto passado por parâmetro.
    * 
-   * @param cidade 
+   * @param produto 
    */
-  private openSidenav(cidade: CidadeEntity): void {
-    this.cidade = cidade;
+  private openSidenav(produto: ProdutoEntity): void {
+    this.produto = produto;
     this.sidenav.open();
   }
 

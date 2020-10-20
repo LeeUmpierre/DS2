@@ -23,9 +23,9 @@ export class CidadeService {
    */
   public listarPorId(id: number) {
     //Assim: 
-    //  return this.http.get(environment.urlSaaS +'/cidades/'+ id);
+      return this.http.get(environment.urlSaaS +'/cidades/'+ id);
     //... ou, assim:
-    return this.http.get(`${environment.urlSaaS}/cidades/${id}`);
+    // return this.http.get(`${environment.urlSaaS}/cidades/${id}`);
   }
 
   /**

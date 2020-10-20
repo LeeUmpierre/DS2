@@ -24,6 +24,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
+import { TabelaprecoComponent } from './tabelapreco/tabelapreco.component';
+import { ProdutoComponent } from './produto/produto.component';
+import { ClienteComponent } from './cliente/cliente.component';
 
 
 
@@ -31,7 +34,10 @@ import {MatDialogModule} from '@angular/material/dialog';
   declarations: [
     AppComponent,
     CidadeComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TabelaprecoComponent,
+    ProdutoComponent,
+    ClienteComponent
   ],
   imports: [
     BrowserModule,
