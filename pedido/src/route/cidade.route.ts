@@ -13,8 +13,16 @@ class CidadeRoute {
     }
 
     private init(): void {
-        this.router.get('/', cidadeController.findAll)
-        this.router.post('/', cidadeController.create)
+
+        this.router.route ('/')
+        .get(cidadeController.findAll)
+        .post(cidadeController.create)
+        
+        this.router.route ('/:id([0-9]+)')
+        .get(cidadeController.findByID)
+        .put(cidadeController.update)
+        .delete(cidadeController.delete)
+
     }
 
 }

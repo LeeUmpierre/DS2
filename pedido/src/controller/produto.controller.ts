@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { MessageChannel } from "worker_threads";
-import { CidadeEntity } from "../entity/cidade.entity";
+import { ProdutoEntity } from "../entity/produto.entity";
 
-class CidadeController {
+class ProdutoController {
     
     public async findAll(req: Request, res: Response) {
 
         try {
 
-            const cidades: CidadeEntity[] = await getRepository(CidadeEntity).find();
-            res.send(cidades);
+            const produtos: ProdutoEntity[] = await getRepository(ProdutoEntity).find();
+            res.send(produtos);
 
         } catch (error) {
             res.status(500).send(error);
@@ -20,12 +20,12 @@ class CidadeController {
 
     public async create(req: Request, res: Response) {
 
-        const cidade = req.body;
+        const produto = req.body;
 
         try {
 
-            await getRepository(CidadeEntity).save( cidade );
-            res.status(201).send(cidade);
+            await getRepository(ProdutoEntity).save( produto );
+            res.status(201).send(produto);
 
         } catch (error) {
             res.status(500).send(error);
@@ -38,16 +38,16 @@ class CidadeController {
 
         try {
             //Buscar registro pela ID
-            const cidade = await getRepository(CidadeEntity).findOne(id);
+            const produto = await getRepository(ProdutoEntity).findOne(id);
 
-            //Se n encontrar cidade devolve erro 404
-            if (cidade) {
-                res.send(cidade);
+            //Se n encontrar produto devolve erro 404
+            if (produto) {
+                res.send(produto);
             } else {
                 res.status(404).send({message: 'Not Found'});
             }
-            const cidades: CidadeEntity[] = await getRepository(CidadeEntity).find();
-            res.send(cidades);
+            const produtos: ProdutoEntity[] = await getRepository(ProdutoEntity).find();
+            res.send(produtos);
 
         } catch (error) {
             res.status(500).send(error);
@@ -61,15 +61,15 @@ class CidadeController {
 
         try {
             //Buscar registro pela ID
-            const cidade = await getRepository(CidadeEntity).findOne(id);
+            const produto = await getRepository(ProdutoEntity).findOne(id);
 
-            //Se n encontrar cidade devolve erro 404
-            if (cidade) {
+            //Se n encontrar produto devolve erro 404
+            if (produto) {
                 //Atualizar registro
-                await getRepository(CidadeEntity).update(cidade.id, novo);
+                await getRepository(ProdutoEntity).update(produto.id, novo);
 
                 //Atualiza o ID do objeto novo
-                novo.id = cidade.id;
+                novo.id = produto.id;
 
                 res.send(novo);
 
@@ -87,10 +87,10 @@ class CidadeController {
 
         try {
             //Buscar registro pela ID
-            const cidade = await getRepository(CidadeEntity).findOne(id);
+            const produto = await getRepository(ProdutoEntity).findOne(id);
 
-            if (cidade) {
-                await getRepository(CidadeEntity).delete(id);
+            if (produto) {
+                await getRepository(ProdutoEntity).delete(id);
 
                 res.status(204).send();
             } else {
@@ -105,4 +105,4 @@ class CidadeController {
 
 }
 
-export default new CidadeController();
+export default new ProdutoController();

@@ -7,6 +7,10 @@ exports.App = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const cidade_route_1 = __importDefault(require("./route/cidade.route"));
+const cliente_route_1 = __importDefault(require("./route/cliente.route"));
+const pedido_route_1 = __importDefault(require("./route/pedido.route"));
+const produto_route_1 = __importDefault(require("./route/produto.route"));
+const tabelapreco_route_1 = __importDefault(require("./route/tabelapreco.route"));
 class App {
     constructor() {
         this.express = express_1.default();
@@ -19,6 +23,10 @@ class App {
     }
     routes() {
         this.express.use('/cidades', cidade_route_1.default);
+        this.express.use('/clientes', cliente_route_1.default);
+        this.express.use('/pedido', pedido_route_1.default);
+        this.express.use('/produtos', produto_route_1.default);
+        this.express.use('/tabelasprecos', tabelapreco_route_1.default);
     }
 }
 exports.App = App;

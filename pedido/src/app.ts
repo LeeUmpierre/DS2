@@ -2,6 +2,10 @@ import express from 'express';
 import cors from 'cors';
 
 import cidadeRoute from './route/cidade.route';
+import clienteRoute from './route/cliente.route';
+import pedidoRoute from './route/pedido.route';
+import produtoRoute from './route/produto.route';
+import tabelaprecoRoute from './route/tabelapreco.route';
 
 export class App {
 
@@ -21,6 +25,11 @@ export class App {
 
     private routes() :void {
         this.express.use('/cidades', cidadeRoute);
+        this.express.use('/clientes', clienteRoute);
+        this.express.use('/pedido', pedidoRoute);
+        this.express.use('/produtos', produtoRoute);
+        this.express.use('/tabelasprecos', tabelaprecoRoute);
+
     }
 
 }
