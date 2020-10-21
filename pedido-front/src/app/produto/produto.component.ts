@@ -3,14 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent, ConfirmDialogOption } from '../_components/confirm-dialog/confirm-dialog.component';
-import { ProdutoEntity } from '../_service/produto.service';
+import { ProdutoEntity, ProdutoService } from '../_service/produto.service';
 
 @Component({
   selector: 'app-produto',
   templateUrl: './produto.component.html',
   styleUrls: ['./produto.component.scss']
 })
-export class ProdutoEntity implements OnInit {
+export class ProdutoComponent implements OnInit {
 
   public displayedColumns: string[] = ['codigo','nome', 'descricao','preco', 'options'];
   public produtos: ProdutoEntity[] = [];
@@ -22,7 +22,7 @@ export class ProdutoEntity implements OnInit {
 
   @ViewChild(MatSidenav, {static: true}) sidenav: MatSidenav;
 
-  constructor(private service: ProdutoEntity, private snackBar: MatSnackBar,
+  constructor(private service: ProdutoService, private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
 
   /**

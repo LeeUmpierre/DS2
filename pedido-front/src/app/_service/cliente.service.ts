@@ -24,10 +24,7 @@ export class ClienteService {
    * @param id 
    */
   public listarPorId(id: number) {
-    //Assim: 
-      return this.http.get(environment.urlSaaS +'/clientes/'+ id);
-    //... ou, assim:
-    // return this.http.get(`${environment.urlSaaS}/clientes/${id}`);
+    return this.http.get(`${environment.urlSaaS}/clientes/${id}`);
   }
 
   /**

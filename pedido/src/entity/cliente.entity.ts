@@ -4,7 +4,6 @@ import { TabelaPrecoEntity } from "./tabelapreco.entity";
 
 @Entity({name: 'cliente'})
 export class ClienteEntity {
-    //Representa os atributos da tabela do BD
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,12 +16,9 @@ export class ClienteEntity {
     @Column({nullable: false, length: 50})
     email: string;
 
-    //ligacao de muitos para um
-    //eager: true ligacao de inner join, sem n faz ligacao
-    @ManyToOne(type => TabelaPrecoEntity, {eager: true, nullable: false})
+    @ManyToOne( type => TabelaPrecoEntity, {eager: true, nullable: true})
     tabelapreco: TabelaPrecoEntity;
 
-    @ManyToOne(type => CidadeEntity, {eager: true, nullable: false})
+    @ManyToOne( type => CidadeEntity, {eager: true, nullable: false})
     cidade: CidadeEntity;
-
 }
