@@ -10,10 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CidadeComponent } from './cidade/cidade.component';
 import { TabelaprecoComponent } from './tabelapreco/tabelapreco.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { ProdutoComponent } from './produto/produto.component';
+import { PedidoComponent } from './pedido/pedido.component';
 
+import { ItempedidoDialogComponent } from './_components/itempedido-dialog/itempedido-dialog.component';
 import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dialog.component';
 
 
+import {MatNativeDateModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
@@ -27,13 +32,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ProdutoComponent } from './produto/produto.component';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 //Locale do Brasil
 import localept from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { ClienteComponent } from './cliente/cliente.component';
 registerLocaleData(localept, 'pt');
 
 @NgModule({
@@ -43,7 +50,9 @@ registerLocaleData(localept, 'pt');
     ConfirmDialogComponent,
     TabelaprecoComponent,
     ProdutoComponent,
-    ClienteComponent
+    ClienteComponent,
+    PedidoComponent,
+    ItempedidoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -63,10 +72,15 @@ registerLocaleData(localept, 'pt');
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'}
+   {provide: LOCALE_ID, useValue: 'pt'}
   ],
   bootstrap: [AppComponent]
 })

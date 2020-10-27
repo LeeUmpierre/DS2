@@ -1,9 +1,9 @@
 import { ConfirmDialogComponent, ConfirmDialogOption } from './../_components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CidadeEntity, CidadeService } from './../_services/cidade.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSidenav } from '@angular/material/sidenav';
+import { CidadeEntity, CidadeService } from '../_service/cidade.service';
 
 @Component({
   selector: 'app-cidade',

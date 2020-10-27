@@ -9,7 +9,45 @@
 
     <mat-sidenav #sidenav_menu mode="side">
         <h3 mat-subheader>Menu Principal</h3>
+        <mat-nav-list>
+            <mat-divider></mat-divider>
 
+            <mat-nav-list>
+                <mat-icon mat-icon-list>location_city</mat-icon>
+                <a matLine routerLink="/cidades">Cidades</a>
+            </mat-nav-list>
+
+            <mat-divider></mat-divider>
+
+            <mat-nav-list>
+                <mat-icon mat-icon-list>monetization_on</mat-icon>
+                <a matLine routerLink="/tabelasprecos">Tabelas Preco</a>
+            </mat-nav-list>
+
+            <mat-divider></mat-divider>
+
+            <mat-nav-list>
+                <mat-icon mat-icon-list>style</mat-icon>
+                <a matLine routerLink="/produtos">Produtos</a>
+            </mat-nav-list>
+
+            <mat-divider></mat-divider>
+
+            <mat-nav-list>
+                <mat-icon mat-icon-list>group</mat-icon>
+                <a matLine routerLink="/clientes">Clientes</a>
+            </mat-nav-list>
+
+            <mat-divider></mat-divider>
+            
+            <mat-nav-list>
+                <mat-icon mat-icon-list>shopping_cart</mat-icon>
+                <a matLine routerLink="/pedidos">Pedidos</a>
+            </mat-nav-list>
+
+            <mat-divider></mat-divider>
+            
+        </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>

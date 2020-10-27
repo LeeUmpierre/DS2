@@ -25,9 +25,9 @@ export class PedidoService {
    */
   public listarPorId(id: number) {
     //Assim: 
-      return this.http.get(environment.urlSaaS +'/pedidos/'+ id);
+    //  return this.http.get(environment.urlSaaS +'/pedidos/'+ id);
     //... ou, assim:
-    // return this.http.get(`${environment.urlSaaS}/pedidos/${id}`);
+    return this.http.get(`${environment.urlSaaS}/pedidos/${id}`);
   }
 
   /**
@@ -75,7 +75,7 @@ export class PedidoService {
 
 export class ItemPedidoEntity {
   id: number;
-  qtdidade: number;
+  qtdade: number;
   vlrunit: number;
   produto: ProdutoEntity;
 }
@@ -87,4 +87,7 @@ export class PedidoEntity {
   cliente: ClienteEntity;
   itens: ItemPedidoEntity[];
 
+  constructor() {
+    this.itens = [];
+  }
 }
