@@ -7,23 +7,26 @@
             <button mat-icon-button (click)="sidenav.close()">
                 <mat-icon>close</mat-icon>
             </button>
-        </mat-toolbar> 
+        </mat-toolbar>
 
         <div class="formulario">
-            
-            <mat-form-field class="full-width">
+
+            <mat-form-field>
                 <input matInput placeholder="Código" [(ngModel)]="produto.codigo">
             </mat-form-field>
+
             <mat-form-field class="full-width">
                 <input matInput placeholder="Nome" [(ngModel)]="produto.nome">
             </mat-form-field>
+
             <mat-form-field class="full-width">
-                <input matInput placeholder="Descrição" [(ngModel)]="produto.descricao">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Preço" [(ngModel)]="produto.preco">
+                <textarea matInput placeholder="Descrição" rows="3" [(ngModel)]="produto.descricao"></textarea>                
             </mat-form-field>
 
+            <mat-form-field>
+                <input matInput placeholder="Preço" [(ngModel)]="produto.preco">
+            </mat-form-field>
+            
         </div>
 
         <mat-toolbar>
@@ -49,12 +52,13 @@
             </mat-card-title>
 
             <mat-card-content>
-                <table mat-table [dataSource]="produtos" *ngIf="!errorMessage">
-                    <!-- Codigo -->
+                <table mat-table [dataSource]="dataSource" *ngIf="!errorMessage">
+                    <!-- CODIGO -->
                     <ng-container matColumnDef="codigo">
                         <th mat-header-cell *matHeaderCellDef>Código</th>
                         <td mat-cell *matCellDef="let produto"> {{produto.codigo}} </td>
                     </ng-container>
+
                     <!-- NOME -->
                     <ng-container matColumnDef="nome">
                         <th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -66,7 +70,8 @@
                         <th mat-header-cell *matHeaderCellDef>Descrição</th>
                         <td mat-cell *matCellDef="let produto"> {{produto.descricao}} </td>
                     </ng-container>
-                    <!-- PREÇO -->
+
+                    <!-- PRECO -->
                     <ng-container matColumnDef="preco">
                         <th mat-header-cell *matHeaderCellDef>Preço</th>
                         <td mat-cell *matCellDef="let produto"> {{produto.preco | currency: 'BRL'}} </td>
