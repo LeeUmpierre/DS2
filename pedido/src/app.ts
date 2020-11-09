@@ -3,15 +3,15 @@ import cors from 'cors';
 import {createServer, Server} from 'http';
 import socketIO from 'socket.io';
 
-import cidadeRoute from './router/cidade.route'
-import clienteRoute from './router/cliente.route'
-import pedidoRoute from './router/pedido.route'
-import produtoRoute from './router/produto.route'
-import tabelaprecoRoute from './router/tabelapreco.route'
+import cidadeRoute from './route/cidade.route'
+import clienteRoute from './route/cliente.route'
+import pedidoRoute from './route/pedido.route'
+import produtoRoute from './route/produto.route'
+import tabelaprecoRoute from './route/tabelapreco.route'
 
 export class App {
     private express: express.Application;
-    private io: SocketIO.Server;
+    private io: socketIO.Server;
 
     public server: Server;
 
