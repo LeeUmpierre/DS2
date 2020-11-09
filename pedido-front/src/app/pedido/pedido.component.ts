@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent, ConfirmDialogOption } from '../_components/confirm-dialog/confirm-dialog.component';
 import { ItempedidoDialogComponent } from '../_components/itempedido-dialog/itempedido-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 import { ClienteEntity, ClienteService } from '../_service/cliente.service';
 import { PedidoEntity, PedidoService } from '../_service/pedido.service';
 
@@ -17,6 +18,8 @@ export class PedidoComponent implements OnInit {
   public displayedColumns: string[] = ['codigo', 'dtpedido', 'cliente', 'total', 'options'];
   public pedidos: PedidoEntity[] = [];
   public clientes: ClienteEntity[] = [];
+
+  public dataSource = new MatTableDataSource<PedidoEntity>();
 
   public errorMessage: string;
   public loading: boolean;
@@ -129,7 +132,7 @@ export class PedidoComponent implements OnInit {
    * 
    * @param pedido
    */
-  public editar(pedido: PedidoEntity): void {
+  public visualizar(pedido: PedidoEntity): void {
     //Como pedido é passado um objeto da tabela por referencia, 
     //se não foir feito uma copia deste, ao alterar a linha da 
     //tabela altera junto.
@@ -162,6 +165,17 @@ export class PedidoComponent implements OnInit {
         this.pedido.itens.push(result);
       }
     })
+  }
+
+  /**
+   * Funçao responsável por aplicar um filtro na tabela
+   * 
+   * @param event 
+   */
+  public applyFilter(event: Event):void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    
   }
 
   /**
@@ -219,7 +233,11 @@ export class PedidoComponent implements OnInit {
       //Alimenta o datasource da tabela com a lista recebido da service
       this.pedidos = result as [];
 
-      //Carrega tabelas de preços
+      this.dataSource.data = this.pedidos;
+
+      this.dataSource.filterPredicate = (data: PedidoEntity, filter: string) => {
+        return data.cliente.nome.toLowerCase().includes(filter);
+      };
       
 
     }, error => {

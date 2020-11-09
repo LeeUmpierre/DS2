@@ -1,8 +1,11 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ItemPedidoEntity } from 'src/app/_service/pedido.service';
-import { TabelaPrecoEntity } from 'src/app/_service/tabelapreco.service';
 import { ProdutoEntity, ProdutoService } from 'src/app/_service/produto.service';
+import { TabelaPrecoEntity } from 'src/app/_service/tabelapreco.service';
+//import { ProdutoEntity, ProdutoService } from 'src/app/_services/produto.service';
+//import { ItemPedidoEntity } from 'src/app/_services/pedido.service';
+//import { TabelaPrecoEntity } from 'src/app/_services/tabelapreco.service';
 
 @Component({
   selector: 'app-itempedido-dialog',

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { MessageChannel } from "worker_threads";
 import { ClienteEntity } from "../entity/cliente.entity";
 
 class ClienteController {
@@ -37,17 +36,15 @@ class ClienteController {
         const id = req.params.id;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const cliente = await getRepository(ClienteEntity).findOne(id);
 
-            //Se n encontrar cliente devolve erro 404
+            //Se não exnotrar uma cliente, devolve erro 404
             if (cliente) {
-                res.send(cliente);
+                res.send(cliente);    
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
-            const clientes: ClienteEntity[] = await getRepository(ClienteEntity).find();
-            res.send(clientes);
 
         } catch (error) {
             res.status(500).send(error);
@@ -60,21 +57,21 @@ class ClienteController {
         const novo = req.body;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const cliente = await getRepository(ClienteEntity).findOne(id);
 
-            //Se n encontrar cliente devolve erro 404
+            //Se não exnotrar uma cliente, devolve erro 404
             if (cliente) {
-                //Atualizar registro
+                //Atualizar o registro
                 await getRepository(ClienteEntity).update(cliente.id, novo);
 
                 //Atualiza o ID do objeto novo
                 novo.id = cliente.id;
-
+                
                 res.send(novo);
 
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
 
         } catch (error) {
@@ -82,19 +79,23 @@ class ClienteController {
         }
 
     }
+
     public async delete(req: Request, res: Response) {
         const id = req.params.id;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const cliente = await getRepository(ClienteEntity).findOne(id);
 
+            //Se não exnotrar uma cliente, devolve erro 404
             if (cliente) {
-                await getRepository(ClienteEntity).delete(id);
+                //Excluir o registro
+                await getRepository(ClienteEntity).delete(cliente);
 
                 res.status(204).send();
+
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
 
         } catch (error) {

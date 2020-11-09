@@ -1,6 +1,7 @@
+import { Socket} from 'ngx-socket-io';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent, ConfirmDialogOption } from '../_components/confirm-dialog/confirm-dialog.component';
 import { ProdutoEntity, ProdutoService } from '../_service/produto.service';
@@ -12,10 +13,10 @@ import { ProdutoEntity, ProdutoService } from '../_service/produto.service';
 })
 export class ProdutoComponent implements OnInit {
 
-  public displayedColumns: string[] = ['codigo','nome', 'descricao','preco', 'options'];
+  public displayedColumns: string[] = ['codigo', 'nome', 'descricao', 'preco', 'options'];
   public produtos: ProdutoEntity[] = [];
 
-  public errorMessage: string; 
+  public errorMessage: string;
   public loading: boolean;
 
   public produto: ProdutoEntity = new ProdutoEntity();
@@ -23,7 +24,7 @@ export class ProdutoComponent implements OnInit {
   @ViewChild(MatSidenav, {static: true}) sidenav: MatSidenav;
 
   constructor(private service: ProdutoService, private snackBar: MatSnackBar,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog, private socketClient: Socket) { }
 
   /**
    * Método disparado na inicialização do componente, logo após sua construção 
@@ -50,6 +51,11 @@ export class ProdutoComponent implements OnInit {
       this.loading = false;
 
     });
+
+    //Listner do evento createProduto
+    this.socketClient.fromEvent('createProduto').subscribe(result => {
+      console.log(result)
+    })
   }
 
   /**
@@ -93,6 +99,7 @@ export class ProdutoComponent implements OnInit {
     //Mostra a janela modal de confirmação
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
+      disableClose: true,
       data: new ConfirmDialogOption('Excluir Registro', 'Deseja realmente exluir o registro?', 'warn')
     });
 

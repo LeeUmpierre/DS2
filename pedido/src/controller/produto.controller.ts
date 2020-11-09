@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { MessageChannel } from "worker_threads";
 import { ProdutoEntity } from "../entity/produto.entity";
 
 class ProdutoController {
@@ -25,6 +24,10 @@ class ProdutoController {
         try {
 
             await getRepository(ProdutoEntity).save( produto );
+            
+            //Emitir um sinal para o socket cliente
+            req.io.emit('createProduto', produto);
+
             res.status(201).send(produto);
 
         } catch (error) {
@@ -37,17 +40,15 @@ class ProdutoController {
         const id = req.params.id;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const produto = await getRepository(ProdutoEntity).findOne(id);
 
-            //Se n encontrar produto devolve erro 404
+            //Se não exnotrar uma produto, devolve erro 404
             if (produto) {
-                res.send(produto);
+                res.send(produto);    
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
-            const produtos: ProdutoEntity[] = await getRepository(ProdutoEntity).find();
-            res.send(produtos);
 
         } catch (error) {
             res.status(500).send(error);
@@ -60,21 +61,21 @@ class ProdutoController {
         const novo = req.body;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const produto = await getRepository(ProdutoEntity).findOne(id);
 
-            //Se n encontrar produto devolve erro 404
+            //Se não exnotrar uma produto, devolve erro 404
             if (produto) {
-                //Atualizar registro
+                //Atualizar o registro
                 await getRepository(ProdutoEntity).update(produto.id, novo);
 
                 //Atualiza o ID do objeto novo
                 novo.id = produto.id;
-
+                
                 res.send(novo);
 
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
 
         } catch (error) {
@@ -82,19 +83,26 @@ class ProdutoController {
         }
 
     }
+
     public async delete(req: Request, res: Response) {
         const id = req.params.id;
 
         try {
-            //Buscar registro pela ID
+            //Buscar o registro pela ID
             const produto = await getRepository(ProdutoEntity).findOne(id);
 
+            //Se não exnotrar uma produto, devolve erro 404
             if (produto) {
-                await getRepository(ProdutoEntity).delete(id);
+                //Excluir o registro
+                await getRepository(ProdutoEntity).delete(produto);
+
+                //Emitir um sinal para o socket cliente
+                req.io.emit('deleteProduto', produto);
 
                 res.status(204).send();
+
             } else {
-                res.status(404).send({message: 'Not Found'});
+                res.status(404).send({message: 'Record not found'})
             }
 
         } catch (error) {
